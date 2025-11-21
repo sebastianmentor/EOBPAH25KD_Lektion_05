@@ -52,10 +52,32 @@ class Account:
         if amount <= 0: 
             raise ValueError(f"Invalid deposit! Amount {amount} must be positive!")
         
-        new_transaction = Transaction(amount, Deposit, datetime.now())
+        new_transaction = Transaction(amount, Deposit(), datetime.now())
         self._transactions.append(new_transaction)
 
         self._saldo += amount
+
+
+    def withdraw(self, amount:float) -> bool:
+        if amount <= 0:
+            raise ValueError(f"Invalid withdraw! Amount {amount} must be positive!")
+        
+        if amount > self._saldo:
+            return False
+        
+        new_transaction = Transaction(amount, Withdraw(), datetime.now())
+        self._transactions.append(new_transaction)
+
+        self._saldo -= amount
+        return True
+    
+def get_amount_from_user() -> Optional[float]:
+    try:
+        amount = float(input("Enter amount: "))
+        return amount
+    except ValueError:
+        print("Invalid amount!")
+        return None
 
 def account_menue(account:Account) -> None:
     while True:
@@ -74,20 +96,29 @@ def account_menue(account:Account) -> None:
             print(account.get_saldo())
 
         elif choice == "2":
-            try:
-                amount = float(input("Enter amount: "))
-            except ValueError:
-                print("Invalid amount!")
-                continue
+            amount = get_amount_from_user()
             
+            if not amount: continue
+
             try:
                 account.deposit(amount)
+                print("Deposit success!")
             except ValueError as e:
                 print(e)
 
 
         elif choice == "3":
-            ...
+            amount = get_amount_from_user()
+            
+            if not amount: continue
+            
+            try:
+                success_witdraw = account.withdraw(amount)
+                
+                print("Withdraw success!") if success_witdraw else print("Insufficient founds!")
+
+            except ValueError as e:
+                print(e)
 
         elif choice == "4":
             print(f"Transactions for {account.get_account_number()}")
@@ -121,7 +152,20 @@ def run_atm():
             break
 
         elif choice == "1":
-            ...
+            try:
+                new_account_number = int(input("Enter new account number: "))
+            except ValueError:
+                print("Invalid number!")
+
+            if new_account_number <= 0:
+                print("Account number must be positive!")
+
+            elif log_in(accounts, new_account_number):
+                print(f"Account with {new_account_number} already exist! Log in instead...")
+
+            else:
+                accounts.append(Account(new_account_number, 0))
+                print(f"Account {new_account_number} created!")
 
         elif choice == "2":
             
