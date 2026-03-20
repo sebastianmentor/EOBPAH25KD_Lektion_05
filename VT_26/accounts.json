@@ -1,0 +1,32 @@
+[
+  {
+    "acc_id": 12345,
+    "balance": 0,
+    "created": "20/03/2026, 11:25:21",
+    "transactions": []
+  },
+  {
+    "acc_id": 11111,
+    "balance": 0,
+    "created": "20/03/2026, 11:25:21",
+    "transactions": []
+  },
+  {
+    "acc_id": 82828,
+    "balance": 0,
+    "created": "20/03/2026, 11:36:22",
+    "transactions": []
+  },
+  {
+    "acc_id": 10010,
+    "balance": 0,
+    "created": "20/03/2026, 11:36:22",
+    "transactions": []
+  },
+  {
+    "acc_id": 6666,
+    "balance": 0,
+    "created": "20/03/2026, 11:38:48",
+    "transactions": []
+  }
+]
